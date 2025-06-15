@@ -1,0 +1,3449 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Grid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- <style>
+        /* Global Styles */
+        body {
+            font-family: 'Inter', sans-serif; /* Using a common sans-serif font */
+            margin: 0;
+            padding: 0;
+            background-color: #333; /* Light background */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #app-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px; /* Max width for larger screens */
+            background-color: #1F1D30;
+            border-radius: 12px;
+            overflow: hidden; /* Ensures rounded corners apply to children */
+            margin: 20px;
+        }
+
+        /* Navigation Bar */
+        #navbar {
+            background-color: #1F1D30; /* Primary blue color */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        #navbar h1 {
+            margin: 0;
+            font-size: 1.8em;
+            letter-spacing: 0.5px;
+        }
+
+        #navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px; /* Space between nav items */
+            flex-wrap: wrap;
+            justify-content: center; /* Center items on wrap */
+        }
+
+        #navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #navbar ul li a:hover,
+        #navbar ul li a.active {
+            background-color: #232137; /* Slightly darker blue on hover/active */
+        }
+
+        /* Main Content Area */
+        #main-content {
+            padding: 30px;
+            flex-grow: 1; /* Allows content to take available space */
+            background-color: #1F1D30;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .page {
+            display: none; /* Hidden by default */
+        }
+
+        .page.active {
+            display: block; /* Show active page */
+        }
+
+        .page-title {
+            font-size: 2em;
+            color: #1F1D30;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e0e6ec;
+            padding-bottom: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #cAA5B8;
+            color: #1F1D30;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color:#d59ebb;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #333;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: calc(100% - 22px); /* Account for padding and border */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding and border in width */
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color:#cAA5B8;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        /* Card/List Item Styling */
+        .card-list {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+            margin-top: 20px;
+        }
+
+        .card, .list-item {
+            background-color: #fefefe;
+            border: 1px solid #e0e6ec;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover, .list-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card h3, .list-item h3 {
+            margin-top: 0;
+            color: #4a90e2;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .card p, .list-item p {
+            margin: 8px 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .card .card-actions, .list-item .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end; /* Align actions to the right */
+        }
+
+        .list-item {
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 15px 20px;
+            gap: 15px;
+        }
+
+        .list-item .item-content {
+            flex-grow: 1;
+        }
+        .list-item .item-actions {
+            margin-top: 0;
+        }
+
+        /* Homepage Specific */
+        #homePage-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        #motivational-quote-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background-color: #e0f2f7;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        #motivational-quote-section blockquote {
+            font-size: 1.6em;
+            font-style: italic;
+            color: #2c5f8f;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        #motivational-quote-section footer {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #5a8bb0;
+        }
+
+        #schedules-section {
+            flex: 2;
+            min-width: 400px;
+        }
+
+        #schedules-section h2 {
+            color: #4a90e2;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            border-bottom: 1px dashed #e0e6ec;
+            padding-bottom: 5px;
+        }
+
+        #schedules-section .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #schedules-section .schedule-item {
+            background-color: #f7f9fc;
+            border: 1px solid #e0e6ec;
+            border-left: 5px solid #4a90e2;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95em;
+        }
+
+        #schedules-section .schedule-item.exam {
+            border-left-color: #f5a623; /* Orange for exams */
+        }
+
+        #schedules-section .schedule-item strong {
+            color: #333;
+        }
+        #schedules-section .schedule-item span {
+            color: #666;
+        }
+
+        /* Subjects Page Specific */
+        #subjects-list-container {
+            margin-top: 20px;
+        }
+
+        .subject-card {
+            min-height: 180px; /* Ensure cards have similar height */
+        }
+
+        /* Tasks Page Specific */
+        .task-item {
+            border-left: 5px solid #4a90e2;
+        }
+        .task-item.completed {
+            border-left-color: #28a745; /* Green for completed tasks */
+            opacity: 0.7;
+        }
+        .task-item.completed .task-description {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .task-item input[type="checkbox"] {
+            transform: scale(1.5);
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        /* Pomodoro Timer Specific */
+        #pomodoro-timer-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        #timer-display {
+            font-size: 5em;
+            font-weight: bold;
+            color: #4a90e2;
+            margin-bottom: 30px;
+            background-color: #e0f2f7;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+            text-align: center;
+        }
+
+        #pomodoro-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #pomodoro-settings {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            background-color: #f7f9fc;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        #pomodoro-settings .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        /* Generic Modal (for custom alerts/confirms only now) */
+        .modal-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000; /* High z-index to be on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Padding for mobile view */
+        }
+
+        .modal-container.visible {
+            display: flex; /* Show when active */
+        }
+
+        /* Specific Modals for Forms - Unique & Appealing UI */
+        .custom-form-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .custom-form-modal.visible {
+            display: flex;
+        }
+
+        .custom-form-modal .modal-content {
+            background: linear-gradient(135deg, #f7f9fc 0%, #eef1f5 100%); /* Subtle gradient */
+            padding: 30px;
+            border-radius: 15px; /* More rounded */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            width: 90%;
+            max-width: 550px; /* Slightly wider */
+            position: relative;
+            animation: modalPopIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce animation */
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid; /* For individual modal colors */
+        }
+
+        .custom-form-modal .modal-content h3 {
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .custom-form-modal .form-group label {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+
+        .custom-form-modal .form-group input,
+        .custom-form-modal .form-group select,
+        .custom-form-modal .form-group textarea {
+            border: 1px solid #c2d1e0;
+            border-radius: 10px; /* More rounded inputs */
+            padding: 12px;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+            background-color: #fcfdff;
+        }
+        .custom-form-modal .form-group input:focus,
+        .custom-form-modal .form-group select:focus,
+        .custom-form-modal .form-group textarea:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.3);
+            background-color: #fff;
+        }
+        .custom-form-modal .btn[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Specific Modal Theming */
+        #addTaskModal .modal-content { border-color: #4CAF50; /* Green */ }
+        #addTaskModal .modal-content h3 { color: #28a745; }
+        #addTaskModal .btn { background-color: #4CAF50; }
+        #addTaskModal .btn:hover { background-color: #45a049; }
+
+        #addExamModal .modal-content { border-color: #FF5722; /* Deep Orange */ }
+        #addExamModal .modal-content h3 { color: #e74c3c; }
+        #addExamModal .btn { background-color: #FF5722; }
+        #addExamModal .btn:hover { background-color: #e04e1b; }
+
+        #addEventModal .modal-content { border-color: #9C27B0; /* Purple */ }
+        #addEventModal .modal-content h3 { color: #8e44ad; }
+        #addEventModal .btn { background-color: #9C27B0; }
+        #addEventModal .btn:hover { background-color: #882299; }
+
+        /* Add Schedule Choice Modal - Styling */
+        #addScheduleChoiceModal .modal-content {
+            background: linear-gradient(45deg, #e0f7fa, #bbdefb); /* Light blue gradient */
+            border-color: #2196F3;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+        }
+        #addScheduleChoiceModal .modal-content h3 {
+            color: #1976D2;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        #add-schedule-options .btn {
+            background-color: #2196F3;
+            padding: 18px 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        #add-schedule-options .btn:hover {
+            background-color: #1976D2;
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        #add-schedule-options .btn i {
+            font-size: 1.3em;
+            margin-right: 12px;
+        }
+
+        /* Calendar Page Specific */
+        #calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e6ec;
+        }
+        #calendar-header h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #4a90e2;
+        }
+        #calendar-header button {
+            background: none;
+            border: 1px solid #4a90e2;
+            color: #4a90e2;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        #calendar-header button:hover {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            background-color: #f7f9fc;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-day-header {
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 5px;
+            color: #4a90e2;
+            background-color: #e0f2f7;
+            border-radius: 8px;
+        }
+
+        .calendar-day {
+            min-height: 80px;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: right;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .calendar-day:hover {
+            background-color: #f0f8ff;
+            border-color: #a7d9ff;
+        }
+        .calendar-day.inactive {
+            background-color: #f9f9f9;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        .calendar-day.today {
+            border: 2px solid #28a745;
+            background-color: #e6ffe6;
+        }
+        .calendar-day.selected-day {
+            border: 2px solid #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+        }
+
+        .calendar-day .day-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .calendar-day.inactive .day-number {
+             color: #ccc;
+        }
+
+        .calendar-day .event-indicator {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            display: flex;
+            gap: 3px;
+        }
+        .calendar-day .event-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .calendar-day .event-indicator.task span { background-color: #4a90e2; } /* Blue for tasks */
+        .calendar-day .event-indicator.exam span { background-color: #f5a623; } /* Orange for exams */
+        .calendar-day .event-indicator.event span { background-color: #9C27B0; } /* Purple for general events */
+
+
+        #calendar-buttons {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+        }
+
+        #day-events-section {
+            margin-top: 30px;
+            border-top: 2px solid #e0e6ec;
+            padding-top: 20px;
+        }
+        #day-events-section h3 {
+            font-size: 1.6em;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+        #day-events-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #day-events-list li {
+            background-color: #f7f9fc;
+            border: 1px solid #e0e6ec;
+            border-left: 5px solid #6c757d; /* Neutral for generic event */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.95em;
+        }
+        #day-events-list li.task-event { border-left-color: #4a90e2; }
+        #day-events-list li.exam-event { border-left-color: #f5a623; }
+        #day-events-list li.event-event { border-left-color: #9C27B0; } /* Purple for events */
+
+        #day-events-list li strong {
+            color: #333;
+            font-size: 1.1em;
+        }
+        #day-events-list li span {
+            color: #666;
+            margin-top: 5px;
+        }
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes modalPopIn {
+            0% { opacity: 0; transform: scale(0.7) translateY(-50px); }
+            80% { opacity: 1; transform: scale(1.05) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            #navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-bottom: 10px;
+            }
+
+            #navbar h1 {
+                margin-bottom: 10px;
+            }
+
+            #navbar ul {
+                width: 100%;
+                justify-content: space-around;
+                gap: 10px;
+            }
+
+            #navbar ul li a {
+                padding: 6px 8px;
+                font-size: 0.9em;
+            }
+
+            #main-content {
+                padding: 20px;
+            }
+
+            .page-title {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+
+            #homePage-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            #motivational-quote-section {
+                padding: 20px;
+            }
+
+            #motivational-quote-section blockquote {
+                font-size: 1.3em;
+            }
+
+            .card-list {
+                grid-template-columns: 1fr; /* Stack cards on small screens */
+            }
+
+            .list-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .list-item .item-actions {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            #timer-display {
+                font-size: 4em;
+                padding: 15px 30px;
+            }
+
+            #pomodoro-buttons {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr); /* Still 7 columns */
+                gap: 3px;
+                padding: 10px;
+            }
+            .calendar-day {
+                min-height: 60px; /* Smaller height on mobile */
+                padding: 5px;
+            }
+            .calendar-day .day-number {
+                font-size: 1em;
+            }
+            .calendar-day .event-indicator {
+                bottom: 3px;
+                left: 3px;
+            }
+            .calendar-day .event-indicator span {
+                width: 6px;
+                height: 6px;
+            }
+            #calendar-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            /* Specific Modals on Mobile */
+            .custom-form-modal .modal-content,
+            #addScheduleChoiceModal .modal-content {
+                padding: 20px;
+            }
+            .custom-form-modal .modal-content h3,
+            #addScheduleChoiceModal .modal-content h3 {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+            #add-schedule-options .btn {
+                padding: 12px 15px;
+                font-size: 1em;
+            }
+        }
+    </style> -->
+    <style>
+body {
+    font-family: 'Poppins', sans-serif; /* Keeping your specified Poppins font */
+    margin: 0;
+    padding: 0;
+    background-color: var(--clr-global-bg); /* Using the global background color */
+    color: var(--clr-global-text-light); /* Using the global light text color */
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--clr-global-card); /* Using the global card background color */
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px;
+    border: 1px solid var(--clr-global-border-subtle); /* Using the global subtle border color */
+}
+    .poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+    body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1B192B; /* Dark purple/blue background */
+    color: #FFFFFF; /* White text */
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #232235; /* Space cadet for main container */
+    /* Removed box-shadow */
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px;
+    border: 1px solid #CAA5BB; /* Cool gray border */
+}
+
+/* Navigation Bar */
+#navbar {
+    background-color: #1F1D30; /* Dark purple for navbar */
+    color: #FFFFFF;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Removed box-shadow */
+    flex-wrap: wrap;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom: 1px solid #CAA5BB; /* Cool gray border */
+}
+
+#navbar h1 {
+    margin: 0;
+    font-size: 1.8em;
+    letter-spacing: 0.5px;
+    color: #CAA5BB; /* Pink lavender for title */
+    text-transform: uppercase;
+}
+/* Removed icon from H1 */
+#navbar h1 i {
+    display: none; /* Hide the icon */
+}
+
+
+#navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#navbar ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    /* Removed padding-right to compensate for removed icon */
+    gap: 0; /* No gap as icons are removed */
+}
+
+/* Hide Font Awesome icons in navbar links */
+#navbar ul li a i {
+    display: none;
+}
+
+
+#navbar ul li a:hover,
+#navbar ul li a.active {
+    background-color: #caa5BB; /* Cool gray on hover/active */
+    color: #1F1D30; /* Dark purple text */
+}
+
+/* Main Content Area */
+#main-content {
+    padding: 30px;
+    flex-grow: 1;
+    background-color: #232235; /* Space cadet */
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    font-family: 'Poppins', sans-serif; /* Keep consistent font */
+    font-size: 2.8em; /* Significantly larger for the page title */
+    font-weight: 800; /* Extra bold for impact */
+    margin-top: 10px;
+    color: #caa5BB; /* Use an accent color to make it pop */
+    letter-spacing: 0.02em; /* Slightly tighter or normal letter spacing */
+    text-transform: capitalize; /* Optional: Capitalize first letter of each word */
+}
+
+/* Buttons */
+.btn {
+    background-color: #CAA5BB; /* Pink lavender */
+    color: #1F1D30; /* Dark purple text */
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Removed box-shadow */
+    display: inline-flex;
+    align-items: center;
+    /* Removed padding-right to compensate for removed icon */
+    gap: 0; /* No gap as icons are removed */
+}
+/* Hide Font Awesome icons in buttons */
+.btn i {
+    display: none;
+}
+
+
+.btn:hover {
+    background-color: #A98598; /* Darker Pink lavender */
+    transform: translateY(-2px);
+    /* Removed box-shadow */
+}
+
+.btn-secondary {
+    background-color: #CAA5BB; /* Cool gray */
+    color: #1F1D30;
+}
+.btn-secondary:hover {
+    background-color:#bd8aa9; /* Darker Cool gray */
+}
+
+.btn-delete {
+    background-color: #B04A5F; /* Custom red/pink for delete */
+    color: #FFFFFF;
+}
+.btn-delete:hover {
+    background-color: #9C384D;
+}
+
+.btn-edit {
+    background-color: #CAA5BB; /* Pink lavender, can be distinct if preferred */
+    color: #1F1D30;
+}
+.btn-edit:hover {
+    background-color: #A98598;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #9186A4; /* Cool gray for labels */
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #9186A4; /* Cool gray border */
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1F1D30; /* Dark purple for input background */
+    color: #FFFFFF; /* White text in inputs */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #CAA5BB; /* Pink lavender on focus */
+    outline: none;
+    /* Removed box-shadow */
+}
+
+/* Card/List Item Styling */
+.card, .list-item {
+    background-color: #252236; /* Space cadet for cards */
+    border: 1px solid #9186A4; /* Cool gray border */
+    /* border-radius: 10px; */
+    padding: 20px;
+    /* Removed box-shadow */
+    transition: transform 0.2s ease; /* Removed box-shadow transition */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #FFFFFF; /* White text */
+}
+
+.card:hover, .list-item:hover {
+    transform: translateY(-5px);
+    /* Removed box-shadow */
+}
+
+.card h3, .list-item h3 {
+    margin-top: 0;
+    color: #CAA5BB; /* Pink lavender for card titles */
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.card p, .list-item p {
+    margin: 8px 0;
+    color: #E1D6D6; /* Timberwolf for secondary text in cards */
+    font-size: 0.95em;
+}
+
+.card .card-actions, .list-item .item-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+.list-item {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px 20px;
+    gap: 15px;
+}
+
+.list-item .item-content {
+    flex-grow: 1;
+}
+.list-item .item-actions {
+    margin-top: 0;
+}
+
+
+/* Homepage Specific - Sleek and Modern Redesign */
+#homePage p {
+    font-size: 0.95em;
+    color: var(--clr-text);
+    margin-bottom: 15px; /* Adjust as needed */
+}
+
+#homePage a {
+    color: var(--clr-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+#homePage a:hover {
+    color: var(--clr-accent-alt);
+}
+
+/* Page Title */
+#homePage .page-title {
+    font-size: 2.2em;
+    font-weight: 200;
+    font-style: italic;
+    color: var(--clr-text);
+    margin-bottom: 30px;
+}
+
+#homePage-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 15px;
+}
+
+/* Motivational Quote Section */
+#homePage #motivational-quote-section {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    padding: 25px;
+    background-color: #CAA5BB;
+    border-radius: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--clr-border-subtle);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+}
+
+#homePage #motivational-quote-section blockquote {
+    font-size: 1.3em;
+    font-style: italic;
+    color:#020f1d;
+    margin: 0;
+    line-height: 1.4;
+}
+
+#homePage #motivational-quote-section footer {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color:#010e1c;
+}
+
+/* Schedules Section */
+#homePage #schedules-section {
+    flex: 2;
+    min-width: 350px;
+    padding: 10px 0;
+}
+
+#homePage #schedules-section h2 {
+    color: var(--clr-accent-alt);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: 500;
+    border-bottom: 1px solid var(--clr-border-subtle);
+    padding-bottom: 5px;
+}
+
+#homePage #schedules-section .schedule-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#homePage #schedules-section .schedule-item {
+    background-color: var(--clr-card);
+    border: 1px solid var(--clr-border-subtle);
+    border-left: 4px solid var(--clr-accent);
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: var(--clr-text);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#homePage #schedules-section .schedule-item.exam {
+    border-left-color: var(--clr-accent-alt);
+}
+
+#homePage #schedules-section .schedule-item strong {
+    color: var(--clr-accent);
+    font-weight: 500;
+}
+
+#homePage #schedules-section .schedule-item span {
+    color: var(--clr-text-secondary);
+    font-size: 0.85em;
+}
+
+/* Homepage Specific
+#homePage-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+#motivational-quote-section {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    background-color: #1F1D30; /* Dark purple */
+    /* border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; */
+    /* Removed box-shadow */
+    /* border: 1px solid #9186A4; Cool gray border */
+/* } */
+
+/* #motivational-quote-section blockquote {
+    font-size: 1.6em;
+    font-style: italic;
+    color: #CAA5BB; /* Pink lavender */
+    /* margin: 0;
+    line-height: 1.4;
+}
+
+#motivational-quote-section footer {
+    margin-top: 15px;
+    font-size: 1em;
+    color: #9186A4; /* Cool gray */
+/* } 
+
+#schedules-section {
+    flex: 2;
+    min-width: 400px;
+}
+
+#schedules-section h2 {
+    color: #CAA5BB;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    border-bottom: 1px dashed #9186A4;
+    padding-bottom: 5px;
+}
+
+#schedules-section .schedule-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#schedules-section .schedule-item {
+    background-color: #252236; /* Space cadet */
+    /* border: 1px solid #9186A4;
+    border-left: 5px solid #9186A4; /* Cool gray for default */
+    /* border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95em;
+    color: #FFFFFF;
+} */
+
+/* #schedules-section .schedule-item.exam {
+    border-left-color: #CAA5BB; /* Pink lavender for exams */
+/* }
+
+#schedules-section .schedule-item strong {
+    color: #CAA5BB; /* Pink lavender for strong text */
+/* }
+#schedules-section .schedule-item span {
+    color: #E1D6D6; /* Timberwolf for secondary info */
+/* }  */
+
+/* Subjects Page Specific */
+#subjects-list-container{
+    margin-top: 20px;
+    display: grid ;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:20px;
+}
+
+.subject-card {
+    min-height: 120px;
+    /* Other card styles from your theme */
+    background-color: var(--clr-global-card);
+    border-radius: 8px;
+    border: 1px solid var(--clr-global-border-subtle);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    color: var(--clr-global-text-light);
+}
+
+/* Tasks Page Specific */
+.task-item {
+    margin-top: 10px;
+    max-width: 50%;
+}
+.task-item.completed { 
+    opacity: 0.7;
+}
+.task-item.completed .task-description {
+    text-decoration: line-through;
+    color: #9186A4; /* Muted Cool gray */
+}
+.task-item input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 15px;
+    cursor: pointer;
+    accent-color: #CAA5BB; /* Pink lavender checkbox */
+}
+
+/* Pomodoro Timer Specific */
+#pomodoro-timer-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#timer-display {
+    font-size: 5em;
+    font-weight: bold;
+    color: #CAA5BB; /* Pink lavender */
+    margin-bottom: 30px;
+    background-color: #1F1D30; /* Dark purple */
+    padding: 20px 40px;
+    /* Removed box-shadow */
+    min-width: 250px;
+    text-align: center;
+    border: 2px solid #9186A4;
+}
+
+#pomodoro-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#pomodoro-settings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    background-color: #252236; /* Space cadet */
+}
+
+#pomodoro-settings .form-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+/* Generic Modal (for custom alerts/confirms only now) */
+.modal-container {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-container.visible {
+    display: flex;
+}
+
+/* Specific Modals for Forms - Unique & Appealing UI */
+.custom-form-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Even darker overlay */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.custom-form-modal.visible {
+    display: flex;
+}
+
+.custom-form-modal .modal-content {
+    background: linear-gradient(135deg, #252236 0%, #1F1D30 100%); /* Space cadet to Dark purple gradient */
+    padding: 30px;
+    border-radius: 15px;
+    /* Removed box-shadow */
+    width: 90%;
+    max-width: 550px;
+    position: relative;
+    animation: modalPopIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 2px solid; /* For individual modal colors */
+    color: #FFFFFF; /* White text inside modals */
+}
+
+.custom-form-modal .modal-content h3 {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+    color: #CAA5BB; /* Pink lavender for modal titles */
+    /* Removed text-shadow */
+}
+
+.custom-form-modal .form-group label {
+    font-weight: 600;
+    color: #9186A4; /* Cool gray for labels */
+}
+
+.custom-form-modal .form-group input,
+.custom-form-modal .form-group select,
+.custom-form-modal .form-group textarea {
+    border: 1px solid #9186A4; /* Cool gray border */
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+    background-color: #1F1D30; /* Dark purple input background */
+    color: #FFFFFF; /* White text in inputs */
+}
+.custom-form-modal .form-group input:focus,
+.custom-form-modal .form-group select:focus,
+.custom-form-modal .form-group textarea:focus {
+    border-color: #CAA5BB; /* Pink lavender focus */
+    /* Removed box-shadow */
+    background-color: #232235; /* Slightly lighter on focus */
+}
+.custom-form-modal .btn[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 25px;
+    border-radius: 10px;
+    /* Removed box-shadow */
+    background-color: #CAA5BB; /* Pink lavender button */
+    color: #1F1D30; /* Dark purple text */
+}
+
+/* Specific Modal Theming - Borders and Headers to match unique types */
+#addTaskModal .modal-content { border-color: #CAA5BB; } /* Pink lavender */
+#addTaskModal .modal-content h3 { color: #CAA5BB; }
+#addTaskModal .btn { background-color: #CAA5BB; color: #1F1D30; }
+#addTaskModal .btn:hover { background-color: #A98598; }
+
+#addExamModal .modal-content { border-color: #9186A4; } /* Cool gray */
+#addExamModal .modal-content h3 { color: #9186A4; }
+#addExamModal .btn { background-color: #9186A4; color: #1F1D30; }
+#addExamModal .btn:hover { background-color: #7A708F; }
+
+#addEventModal .modal-content { border-color: #E1D6D6; } /* Timberwolf */
+#addEventModal .modal-content h3 { color: #E1D6D6; }
+#addEventModal .btn { background-color: #E1D6D6; color: #1F1D30; }
+#addEventModal .btn:hover { background-color: #BDB0B0; }
+
+/* Add Schedule Choice Modal - Styling */
+#addScheduleChoiceModal .modal-content {
+    background: linear-gradient(45deg, #1F1D30, #252236); /* Darker gradient */
+    border-color: #CAA5BB; /* Pink lavender */
+    padding: 35px;
+    border-radius: 20px;
+    /* Removed box-shadow */
+}
+#addScheduleChoiceModal .modal-content h3 {
+    color: #CAA5BB; /* Pink lavender */
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+#add-schedule-options .btn {
+    background-color: #9186A4; /* Cool gray for choices */
+    color: #1F1D30;
+    padding: 18px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 12px;
+    /* Removed box-shadow */
+    transition: all 0.3s ease;
+}
+#add-schedule-options .btn:hover {
+    background-color: #CAA5BB; /* Pink lavender on hover */
+    transform: scale(1.03);
+    /* Removed box-shadow */
+}
+/* Hide Font Awesome icons in choice buttons */
+#add-schedule-options .btn i {
+    display: none;
+}
+
+/* Calendar Page Specific */
+#calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #9186A4;
+}
+#calendar-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #CAA5BB;
+}
+#calendar-header button {
+    background: none;
+    border: 1px solid #CAA5BB;
+    color: #CAA5BB;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+#calendar-header button:hover {
+    background-color: #CAA5BB;
+    color: #1F1D30;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    background-color: #1F1D30; /* Dark purple for grid background */
+    padding: 15px;
+    border-radius: 10px;
+    /* Removed box-shadow */
+}
+
+.calendar-day-header {
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 5px;
+    color: #9186A4; /* Cool gray */
+    background-color: #252236; /* Space cadet for headers */
+    border-radius: 8px;
+}
+
+.calendar-day {
+    min-height: 80px;
+    background-color: #232235; /* Space cadet for day cells */
+    border: 1px solid #9186A4; /* Cool gray border */
+    border-radius: 8px;
+    padding: 8px;
+    text-align: right;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #FFFFFF;
+}
+.calendar-day:hover {
+    background-color: #1F1D30; /* Darker on hover */
+    border-color: #CAA5BB; /* Pink lavender border */
+}
+.calendar-day.inactive {
+    background-color: #1A1828; /* Even darker for inactive */
+    color: #555; /* Muted text */
+    cursor: not-allowed;
+    border-color: #1B192B;
+}
+.calendar-day.today {
+    border: 2px solid #CAA5BB; /* Pink lavender for today */
+    background-color: #252236; /* Space cadet */
+}
+.calendar-day.selected-day {
+    border: 2px solid #CAA5BB; /* Pink lavender for selected */
+    /* Removed box-shadow */
+}
+
+.calendar-day .day-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.calendar-day.inactive .day-number {
+     color: #555;
+}
+
+.calendar-day .event-indicator {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    display: flex;
+    gap: 3px;
+}
+.calendar-day .event-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.calendar-day .event-indicator.task span { background-color: #9186A4; } /* Cool gray for tasks */
+.calendar-day .event-indicator.exam span { background-color: #CAA5BB; } /* Pink lavender for exams */
+.calendar-day .event-indicator.event span { background-color: #E1D6D6; } /* Timberwolf for general events */
+
+
+#calendar-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+#day-events-section {
+    margin-top: 30px;
+    border-top: 2px solid #9186A4;
+    padding-top: 20px;
+    color: #FFFFFF;
+}
+#day-events-section h3 {
+    font-size: 1.6em;
+    color: #CAA5BB;
+    margin-bottom: 15px;
+}
+#day-events-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#day-events-list li {
+    background-color: #252236; /* Space cadet */
+    border: 1px solid #9186A4;
+    border-left: 5px solid #9186A4; /* Cool gray for generic event */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95em;
+    color: #FFFFFF;
+}
+#day-events-list li.task-event { border-left-color: #9186A4; }
+#day-events-list li.exam-event { border-left-color: #CAA5BB; }
+#day-events-list li.event-event { border-left-color: #E1D6D6; } /* Timberwolf for events */
+
+#day-events-list li strong {
+    color: #CAA5BB;
+    font-size: 1.1em;
+}
+#day-events-list li span {
+    color: #E1D6D6;
+    margin-top: 5px;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes modalPopIn {
+    0% { opacity: 0; transform: scale(0.7) translateY(-50px); }
+    80% { opacity: 1; transform: scale(1.05) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 10px;
+    }
+
+    #navbar h1 {
+        margin-bottom: 10px;
+    }
+
+    #navbar ul {
+        width: 100%;
+        justify-content: space-around;
+        gap: 10px;
+    }
+
+    #navbar ul li a {
+        padding: 6px 8px;
+        font-size: 0.9em;
+    }
+
+    #main-content {
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    #homePage-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #motivational-quote-section {
+        padding: 20px;
+    }
+
+    #motivational-quote-section blockquote {
+        font-size: 1.3em;
+    }
+
+    .card-list {
+        grid-template-columns: 1fr;
+    }
+
+    .list-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .list-item .item-actions {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    #timer-display {
+        font-size: 4em;
+        padding: 15px 30px;
+    }
+
+    #pomodoro-buttons {
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        padding: 10px;
+    }
+    .calendar-day {
+        min-height: 60px;
+        padding: 5px;
+    }
+    .calendar-day .day-number {
+        font-size: 1em;
+    }
+    .calendar-day .event-indicator {
+        bottom: 3px;
+        left: 3px;
+    }
+    .calendar-day .event-indicator span {
+        width: 6px;
+        height: 6px;
+    }
+    #calendar-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Specific Modals on Mobile */
+    .custom-form-modal .modal-content,
+    #addScheduleChoiceModal .modal-content {
+        padding: 20px;
+    }
+    .custom-form-modal .modal-content h3,
+    #addScheduleChoiceModal .modal-content h3 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    #add-schedule-options .btn {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+}
+</style>
+</head>
+<body>
+    <div id="app-container">
+        <nav id="navbar">
+            <h1><i class="fas fa-book-reader"></i> Study Grid</h1>
+            <ul>
+                <li><a href="#home" class="nav-link active" data-page="homePage"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#subjects" class="nav-link" data-page="subjectsPage"><i class="fas fa-book"></i> Subjects</a></li>
+                <li><a href="#tasks" class="nav-link" data-page="tasksPage"><i class="fas fa-tasks"></i> Tasks</a></li>
+                <li><a href="#calendar" class="nav-link" data-page="calendarPage"><i class="fas fa-calendar-days"></i> Calendar</a></li>
+                <li><a href="#pomodoro" class="nav-link" data-page="pomodoroPage"><i class="fas fa-clock"></i> Pomodoro</a></li>
+            </ul>
+        </nav>
+
+        <div id="main-content">
+            <!-- Home Page -->
+            <div id="homePage" class="page active">
+                <h2 class="page-title">Hello, Grace</h2>
+                <div id="homePage-content">
+                    <section id="motivational-quote-section">
+                        <blockquote>"The beautiful thing about learning is that no one can take it away from you."</blockquote>
+                        <footer>— B.B. King</footer>
+                    </section>
+                    
+
+                    <section id="schedules-section">
+                        <h2>Upcoming Deadlines</h2>
+                        <ul id="upcoming-tasks-list" class="schedule-list">
+                            <!-- Upcoming tasks will be rendered here -->
+                        </ul>
+                        <h2>Exam Schedule</h2>
+                        <ul id="upcoming-exams-list" class="schedule-list">
+                            <!-- Upcoming exams will be rendered here -->
+                        </ul>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Subjects Page -->
+            <div id="subjectsPage" class="page">
+                <h2 class="page-title">Subjects</h2>
+                <button id="addSubjectBtn" class="btn"><i class="fas fa-plus"></i> Add New Subject</button>
+                <div id="subjects-list-container" class="card-list">
+                    <!-- Subjects will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Tasks To-Do Page -->
+            <div id="tasksPage" class="page">
+                <h2 class="page-title">To-Do</h2>
+                <button id="addTaskBtn" class="btn"><i class="fas fa-plus"></i> Add New Task</button>
+                <div id="tasks-list-container" class="card-list">
+                    <!-- Tasks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Calendar Page -->
+            <div id="calendarPage" class="page">
+                <h2 class="page-title">Calendar</h2>
+                <div id="calendar-buttons">
+                    <button id="addScheduleCalendarBtn" class="btn"><i class="fas fa-plus"></i> Add Schedule</button>
+                </div>
+                <div id="calendar-header">
+                    <button id="prevMonthBtn"><i class="fas fa-chevron-left"></i> Prev</button>
+                    <h3 id="currentMonthYear"></h3>
+                    <button id="nextMonthBtn">Next <i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div id="calendar-grid-container" class="calendar-grid">
+                    <div class="calendar-day-header">Sun</div>
+                    <div class="calendar-day-header">Mon</div>
+                    <div class="calendar-day-header">Tue</div>
+                    <div class="calendar-day-header">Wed</div>
+                    <div class="calendar-day-header">Thu</div>
+                    <div class="calendar-day-header">Fri</div>
+                    <div class="calendar-day-header">Sat</div>
+                    <!-- Calendar days will be rendered here -->
+                </div>
+                <div id="day-events-section">
+                    <h3>Events for <span id="selectedDayDate"></span></h3>
+                    <ul id="day-events-list">
+                        <!-- Events for the selected day will be rendered here -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Pomodoro Timer Page -->
+            <div id="pomodoroPage" class="page">
+                <h2 class="page-title">Timer</h2>
+                <div id="pomodoro-timer-controls">
+                    <div id="timer-display">25:00</div>
+                    <div id="pomodoro-settings">
+                        <div class="form-group">
+                            <label for="workDurationInput">Work Duration (min)</label>
+                            <input type="number" id="workDurationInput" value="25" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="breakDurationInput">Break Duration (min)</label>
+                            <input type="number" id="breakDurationInput" value="5" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="pomodoroSubjectSelect">Subject</label>
+                            <select id="pomodoroSubjectSelect">
+                                <option value="">None</option>
+                                <!-- Subjects will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div id="pomodoro-buttons">
+                        <button id="startPomodoroBtn" class="btn"><i class="fas fa-play"></i> Start</button>
+                        <button id="pausePomodoroBtn" class="btn btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
+                        <button id="resetPomodoroBtn" class="btn btn-secondary" disabled><i class="fas fa-redo"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Universal Modal for Subject Forms/Messages -->
+        <div id="modalContainer" class="modal-container">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="modalBody">
+                    <!-- Modal form content will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Alert/Confirm Modal (Generic) -->
+        <div id="customAlertContainer" class="modal-container">
+            <div class="modal-content">
+                <h3 id="customAlertTitle"></h3>
+                <p id="customAlertMessage"></p>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button id="customAlertOkBtn" class="btn">OK</button>
+                    <button id="customAlertCancelBtn" class="btn btn-secondary hidden">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Schedule Choice Modal -->
+        <div id="addScheduleChoiceModal" class="custom-form-modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeAddScheduleChoiceModal">&times;</span>
+                <h3>What would you like to schedule?</h3>
+                <div id="add-schedule-options">
+                    <button id="choiceAddTaskBtn" class="btn"><i class="fas fa-tasks"></i> Add Task</button>
+                    <button id="choiceAddExamBtn" class="btn"><i class="fas fa-calendar-alt"></i> Add Exam</button>
+                    <button id="choiceAddEventBtn" class="btn"><i class="fas fa-calendar-check"></i> Add Event</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Task Modal -->
+        <div id="addTaskModal" class="custom-form-modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Add New Task</h3>
+                <form id="addTaskForm">
+                    <div class="form-group">
+                        <label for="taskDescription">Task Description:</label>
+                        <input type="text" id="taskDescription" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDueDate">Due Date (Optional):</label>
+                        <input type="date" id="taskDueDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="taskSubject">Link to Subject (Optional):</label>
+                        <select id="taskSubject">
+                            <!-- Options populated by populateSubjectSelect -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Save Task</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Exam Modal -->
+        <div id="addExamModal" class="custom-form-modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Add New Exam</h3>
+                <form id="addExamForm">
+                    <div class="form-group">
+                        <label for="examName">Exam/Deadline Name:</label>
+                        <input type="text" id="examName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="examDate">Date:</label>
+                        <input type="date" id="examDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="examTime">Time (Optional):</label>
+                        <input type="time" id="examTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="examSubject">Link to Subject:</label>
+                        <select id="examSubject" required>
+                            <!-- Options populated by populateSubjectSelect -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Save Exam</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Event Modal (NEW) -->
+        <div id="addEventModal" class="custom-form-modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Add New Event</h3>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Date:</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Time (Optional):</label>
+                        <input type="time" id="eventTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description (Optional):</label>
+                        <textarea id="eventDescription" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-calendar-plus"></i> Save Event</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Global Data Stores ---
+        let subjects = [];
+        let tasks = [];
+        let exams = [];
+        let events = []; // NEW: Array to store general events
+        let pomodoroSessions = []; // Store completed sessions for tracking total study time
+
+        // --- DOM Elements ---
+        const appContainer = document.getElementById('app-container');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const mainContent = document.getElementById('main-content');
+
+        const motivationalQuoteSection = document.getElementById('motivational-quote-section');
+        const upcomingTasksList = document.getElementById('upcoming-tasks-list');
+        const upcomingExamsList = document.getElementById('upcoming-exams-list');
+
+        const subjectsListContainer = document.getElementById('subjects-list-container');
+        const addSubjectBtn = document.getElementById('addSubjectBtn');
+
+        const tasksListContainer = document.getElementById('tasks-list-container');
+        const addTaskBtn = document.getElementById('addTaskBtn'); // This is the button on the Tasks page
+
+        const timerDisplay = document.getElementById('timer-display');
+        const workDurationInput = document.getElementById('workDurationInput');
+        const breakDurationInput = document.getElementById('breakDurationInput');
+        const pomodoroSubjectSelect = document.getElementById('pomodoroSubjectSelect');
+        const startPomodoroBtn = document.getElementById('startPomodoroBtn');
+        const pausePomodoroBtn = document.getElementById('pausePomodoroBtn');
+        const resetPomodoroBtn = document.getElementById('resetPomodoroBtn');
+
+        const customAlertContainer = document.getElementById('customAlertContainer');
+        const customAlertTitle = document.getElementById('customAlertTitle');
+        const customAlertMessage = document.getElementById('customAlertMessage');
+        const customAlertOkBtn = document.getElementById('customAlertOkBtn');
+        const customAlertCancelBtn = document.getElementById('customAlertCancelBtn');
+
+        // Calendar DOM elements
+        const calendarHeader = document.getElementById('calendar-header');
+        const currentMonthYearDisplay = document.getElementById('currentMonthYear');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+        const calendarGridContainer = document.getElementById('calendar-grid-container');
+        const addScheduleCalendarBtn = document.getElementById('addScheduleCalendarBtn'); // Renamed button
+        const dayEventsSection = document.getElementById('day-events-section');
+        const selectedDayDateDisplay = document.getElementById('selectedDayDate');
+        const dayEventsList = document.getElementById('day-events-list');
+
+        // Modals and their buttons
+        const addScheduleChoiceModal = document.getElementById('addScheduleChoiceModal');
+        const closeAddScheduleChoiceModalBtn = addScheduleChoiceModal.querySelector('.close-button');
+        const choiceAddTaskBtn = document.getElementById('choiceAddTaskBtn');
+        const choiceAddExamBtn = document.getElementById('choiceAddExamBtn');
+        const choiceAddEventBtn = document.getElementById('choiceAddEventBtn'); // NEW event choice button
+
+        const addTaskModal = document.getElementById('addTaskModal');
+        const addTaskForm = document.getElementById('addTaskForm');
+        const closeAddTaskModalBtn = addTaskModal.querySelector('.close-button');
+
+        const addExamModal = document.getElementById('addExamModal');
+        const addExamForm = document.getElementById('addExamForm');
+        const closeAddExamModalBtn = addExamModal.querySelector('.close-button');
+
+        const addEventModal = document.getElementById('addEventModal'); // NEW event modal
+        const addEventForm = document.getElementById('eventForm'); // NEW event form
+        const closeAddEventModalBtn = addEventModal.querySelector('.close-button'); // NEW event close button
+
+
+        // --- Pomodoro Timer Variables ---
+        let timer;
+        let isTimerRunning = false;
+        let isWorkSession = true;
+        let timeLeft = 0; // in seconds
+        let defaultWorkDuration = 25 * 60; // 25 minutes in seconds
+        let defaultBreakDuration = 5 * 60; // 5 minutes in seconds
+
+        // --- Calendar Variables ---
+        let currentCalendarDate = new Date(); // Stores the currently displayed month/year
+        let selectedCalendarDate = null; // Stores the date of the clicked day on the calendar
+
+        const motivationalQuotes = [
+            { quote: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
+            { quote: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
+            { quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
+            { quote: "Strive for progress, not perfection.", author: "Unknown" },
+            { quote: "The expert in anything was once a beginner.", author: "Helen Hayes" }
+        ];
+
+        // --- Utility Functions ---
+
+        /**
+         * Generates a simple unique ID.
+         * @returns {string} A unique ID string.
+         */
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0,
+                    v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        /**
+         * Saves data to local storage.
+         */
+        function saveData() {
+            localStorage.setItem('studyPlanner_subjects', JSON.stringify(subjects));
+            localStorage.setItem('studyPlanner_tasks', JSON.stringify(tasks));
+            localStorage.setItem('studyPlanner_exams', JSON.stringify(exams));
+            localStorage.setItem('studyPlanner_events', JSON.stringify(events)); // Save new events data
+            localStorage.setItem('studyPlanner_pomodoroSessions', JSON.stringify(pomodoroSessions));
+        }
+
+        /**
+         * Loads data from local storage.
+         */
+        function loadData() {
+            subjects = JSON.parse(localStorage.getItem('studyPlanner_subjects')) || [];
+            tasks = JSON.parse(localStorage.getItem('studyPlanner_tasks')) || [];
+            exams = JSON.parse(localStorage.getItem('studyPlanner_exams')) || [];
+            events = JSON.parse(localStorage.getItem('studyPlanner_events')) || []; // Load new events data
+            pomodoroSessions = JSON.parse(localStorage.getItem('studyPlanner_pomodoroSessions')) || [];
+        }
+
+        /**
+         * Shows a specific page and hides others.
+         * @param {string} pageId - The ID of the page to show.
+         */
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Re-render content for the active page
+            if (pageId === 'homePage') {
+                renderHomePage();
+            } else if (pageId === 'subjectsPage') {
+                renderSubjectsPage();
+            } else if (pageId === 'tasksPage') {
+                renderTasksPage();
+            } else if (pageId === 'calendarPage') {
+                renderCalendarPage();
+            } else if (pageId === 'pomodoroPage') {
+                renderPomodoroPage();
+            }
+        }
+
+        /**
+         * Shows a custom form modal (addTaskModal, addExamModal, addEventModal).
+         * @param {HTMLElement} modalElement - The modal container element (e.g., addTaskModal).
+         * @param {HTMLElement} formElement - The form element inside the modal.
+         * @param {Function} onSubmitCallback - Function to call on form submission.
+         * @param {Function} [prefillFunc=null] - Optional function to prefill form inputs.
+         */
+        function showCustomFormModal(modalElement, formElement, onSubmitCallback, prefillFunc = null) {
+            modalElement.classList.add('visible');
+            if (prefillFunc) {
+                prefillFunc(); // Call prefill function
+            }
+
+            // Clear previous submit listener and add new one
+            const clonedForm = formElement.cloneNode(true);
+            formElement.parentNode.replaceChild(clonedForm, formElement);
+            clonedForm.onsubmit = function(event) {
+                event.preventDefault();
+                onSubmitCallback(event);
+                hideCustomFormModal(modalElement);
+            };
+
+            // Set up close button
+            modalElement.querySelector('.close-button').onclick = () => hideCustomFormModal(modalElement);
+            modalElement.onclick = (event) => {
+                if (event.target === modalElement) {
+                    hideCustomFormModal(modalElement);
+                }
+            };
+        }
+
+        /**
+         * Hides a custom form modal.
+         * @param {HTMLElement} modalElement - The modal container element.
+         */
+        function hideCustomFormModal(modalElement) {
+            modalElement.classList.remove('visible');
+            // Reset form fields
+            const form = modalElement.querySelector('form');
+            if (form) {
+                form.reset();
+            }
+        }
+
+        /**
+         * Displays a custom alert message.
+         * @param {string} title - The title of the alert.
+         * @param {string} message - The message to display.
+         * @param {function} onOk - Callback for OK button.
+         * @param {boolean} isConfirm - If true, shows a Cancel button.
+         * @param {function} onCancel - Callback for Cancel button (if isConfirm is true).
+         */
+        function customAlert(title, message, onOk, isConfirm = false, onCancel = null) {
+            customAlertTitle.textContent = title;
+            customAlertMessage.textContent = message;
+            customAlertOkBtn.onclick = () => {
+                customAlertContainer.classList.remove('visible');
+                if (onOk) onOk();
+            };
+
+            if (isConfirm) {
+                customAlertCancelBtn.classList.remove('hidden');
+                customAlertCancelBtn.onclick = () => {
+                    customAlertContainer.classList.remove('visible');
+                    if (onCancel) onCancel();
+                };
+            } else {
+                customAlertCancelBtn.classList.add('hidden');
+            }
+            customAlertContainer.classList.add('visible');
+        }
+
+        // --- Data Management and Rendering Functions ---
+
+        /**
+         * Updates calculated metrics (tasksCount, upcomingExamsDates) for all subjects.
+         * This ensures data consistency across the app after tasks/exams are added/modified/deleted.
+         */
+        function updateSubjectMetrics() {
+            subjects.forEach(subject => {
+                // Calculate tasksCount
+                subject.tasksCount = tasks.filter(task => task.subjectId === subject.id && !task.isCompleted).length;
+
+                // Update upcomingExamsDates
+                const now = new Date();
+                const subjectExams = exams
+                    .filter(exam => exam.subjectId === subject.id && new Date(exam.date) >= now)
+                    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                subject.upcomingExamsDates = subjectExams.map(exam => new Date(exam.date).toLocaleDateString());
+            });
+            saveData();
+        }
+
+        /**
+         * Renders the Home page content.
+         */
+        function renderHomePage() {
+            // Update motivational quote
+            const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+            motivationalQuoteSection.querySelector('blockquote').textContent = `"${randomQuote.quote}"`;
+            motivationalQuoteSection.querySelector('footer').textContent = `— ${randomQuote.author}`;
+
+            // Render upcoming tasks (top 3 incomplete, sorted by due date)
+            const upcomingTasks = tasks
+                .filter(task => !task.isCompleted && task.dueDate)
+                .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+                .slice(0, 3);
+
+            upcomingTasksList.innerHTML = '';
+            if (upcomingTasks.length === 0) {
+                upcomingTasksList.innerHTML = '<li class="schedule-item">No upcoming tasks. Good job!</li>';
+            } else {
+                upcomingTasks.forEach(task => {
+                    const taskSubject = subjects.find(s => s.id === task.subjectId);
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('schedule-item');
+                    listItem.innerHTML = `
+                        <div>
+                            <strong>${task.description}</strong>
+                            <span> (Due: ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'})</span>
+                        </div>
+                        <span>${taskSubject ? taskSubject.name : 'No Subject'}</span>
+                    `;
+                    upcomingTasksList.appendChild(listItem);
+                });
+            }
+
+            // Render upcoming exams (top 3, sorted by date)
+            const now = new Date();
+            const upcomingExams = exams
+                .filter(exam => new Date(exam.date) >= now)
+                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                .slice(0, 3);
+
+            upcomingExamsList.innerHTML = '';
+            if (upcomingExams.length === 0) {
+                upcomingExamsList.innerHTML = '<li class="schedule-item exam">No upcoming exams scheduled.</li>';
+            } else {
+                upcomingExams.forEach(exam => {
+                    const examSubject = subjects.find(s => s.id === exam.subjectId);
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('schedule-item', 'exam');
+                    listItem.innerHTML = `
+                        <div>
+                            <strong>${exam.name}</strong>
+                            <span> (Date: ${new Date(exam.date).toLocaleDateString()} ${new Date(exam.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})</span>
+                        </div>
+                        <span>${examSubject ? examSubject.name : 'Unknown Subject'}</span>
+                    `;
+                    upcomingExamsList.appendChild(listItem);
+                });
+            }
+        }
+
+
+        /**
+         * Renders the Subjects page.
+         */
+        function renderSubjectsPage() {
+            subjectsListContainer.innerHTML = ''; // Clear previous content
+
+            if (subjects.length === 0) {
+                subjectsListContainer.innerHTML = '<p style="text-align: center; color: #666;">No subjects added yet. Click "Add New Subject" to get started!</p>';
+                return;
+            }
+
+            subjects.forEach(subject => {
+                const subjectCard = document.createElement('div');
+                subjectCard.classList.add('card', 'subject-card');
+                subjectCard.innerHTML = `
+                    <h3><i class="fas fa-book"></i> ${subject.name}</h3>
+                    ${subject.description ? `<p>${subject.description}</p>` : ''}
+                    <p><strong>Tasks:</strong> ${subject.tasksCount}</p>
+                    <p><strong>Upcoming Exams:</strong> ${subject.upcomingExamsDates && subject.upcomingExamsDates.length > 0 ? subject.upcomingExamsDates.join(', ') : 'None'}</p>
+                    <p><strong>Total Study Time:</strong> ${Math.floor(subject.totalStudyTime / 60)}h ${subject.totalStudyTime % 60}m</p>
+                    <div class="card-actions">
+                        <button class="btn btn-edit edit-subject-btn" data-id="${subject.id}"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-delete delete-subject-btn" data-id="${subject.id}"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
+                `;
+                subjectsListContainer.appendChild(subjectCard);
+            });
+
+            // Add event listeners for edit and delete buttons
+            subjectsListContainer.querySelectorAll('.edit-subject-btn').forEach(btn => {
+                btn.onclick = (e) => editSubject(e.currentTarget.dataset.id);
+            });
+            subjectsListContainer.querySelectorAll('.delete-subject-btn').forEach(btn => {
+                btn.onclick = (e) => deleteSubject(e.currentTarget.dataset.id);
+            });
+        }
+
+        /**
+         * Handles adding a new subject.
+         */
+        addSubjectBtn.onclick = () => {
+            const formHtml = `
+                <form id="addSubjectForm">
+                    <div class="form-group">
+                        <label for="subjectName">Subject Name:</label>
+                        <input type="text" id="subjectName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subjectDescription">Description (Optional):</label>
+                        <textarea id="subjectDescription" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Save Subject</button>
+                </form>
+            `;
+
+            // Using the generic modal for subject adds/edits
+            const genericModal = document.getElementById('modalContainer');
+            const genericModalBody = document.getElementById('modalBody'); // Get it here
+            
+            if (!genericModalBody) { // Null check added
+                console.error('Error: modalBody element not found for adding subject.');
+                customAlert('Error', 'Could not open form. Please try again.');
+                return;
+            }
+
+            genericModalBody.innerHTML = `<h3>Add New Subject</h3>` + formHtml;
+            genericModal.classList.add('visible');
+
+            const form = genericModalBody.querySelector('form');
+            if (form) {
+                form.onsubmit = function(event) {
+                    event.preventDefault();
+                    const name = event.target.subjectName.value;
+                    const description = event.target.subjectDescription.value;
+
+                    subjects.push({
+                        id: generateUUID(),
+                        name: name,
+                        description: description,
+                        tasksCount: 0,
+                        upcomingExamsDates: [],
+                        totalStudyTime: 0,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    });
+                    saveData();
+                    updateSubjectMetrics();
+                    renderSubjectsPage();
+                    customAlert('Success', `Subject "${name}" added!`, null);
+                    genericModal.classList.remove('visible'); // Hide after submit
+                };
+            }
+            // Close button for the generic modal is now managed in DOMContentLoaded
+            // genericModal.querySelector('.close-button').onclick = () => genericModal.classList.remove('visible');
+            // genericModal.onclick = (event) => {
+            //     if (event.target === genericModal) {
+            //         genericModal.classList.remove('visible');
+            //     }
+            // };
+        };
+
+
+        /**
+         * Handles editing an existing subject.
+         * @param {string} id - The ID of the subject to edit.
+         */
+        function editSubject(id) {
+            const subject = subjects.find(s => s.id === id);
+            if (!subject) return;
+
+            const formHtml = `
+                <form id="editSubjectForm">
+                    <div class="form-group">
+                        <label for="editSubjectName">Subject Name:</label>
+                        <input type="text" id="editSubjectName" value="${subject.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSubjectDescription">Description (Optional):</label>
+                        <textarea id="editSubjectDescription" rows="3">${subject.description || ''}</textarea>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Update Subject</button>
+                </form>
+            `;
+
+            const genericModal = document.getElementById('modalContainer');
+            const genericModalBody = document.getElementById('modalBody'); // Get it here
+            
+            if (!genericModalBody) { // Null check added
+                console.error('Error: modalBody element not found for editing subject.');
+                customAlert('Error', 'Could not open form. Please try again.');
+                return;
+            }
+
+            genericModalBody.innerHTML = `<h3>Edit Subject</h3>` + formHtml;
+            genericModal.classList.add('visible');
+
+            const form = genericModalBody.querySelector('form');
+            if (form) {
+                form.onsubmit = function(event) {
+                    event.preventDefault();
+                    subject.name = event.target.editSubjectName.value;
+                    subject.description = event.target.editSubjectDescription.value;
+                    subject.updatedAt = new Date().toISOString();
+                    saveData();
+                    renderSubjectsPage();
+                    customAlert('Success', `Subject "${subject.name}" updated!`, null);
+                    genericModal.classList.remove('visible');
+                };
+            }
+            // Close button for the generic modal is now managed in DOMContentLoaded
+            // genericModal.querySelector('.close-button').onclick = () => genericModal.classList.remove('visible');
+            // genericModal.onclick = (event) => {
+            //     if (event.target === genericModal) {
+            //         genericModal.classList.remove('visible');
+            //     }
+            // };
+        }
+
+        /**
+         * Handles deleting a subject.
+         * @param {string} id - The ID of the subject to delete.
+         */
+        function deleteSubject(id) {
+            customAlert('Confirm Delete', 'Are you sure you want to delete this subject? All linked tasks and exams will also be deleted.', () => {
+                subjects = subjects.filter(s => s.id !== id);
+                tasks = tasks.filter(t => t.subjectId !== id); // Delete linked tasks
+                exams = exams.filter(e => e.subjectId !== id); // Delete linked exams
+                saveData();
+                updateSubjectMetrics(); // Re-calculate metrics for remaining subjects
+                renderSubjectsPage();
+                renderTasksPage(); // Re-render tasks as some might be removed
+                renderCalendar(); // Re-render calendar to reflect changes
+                customAlert('Deleted', 'Subject and its linked items deleted.', null);
+            }, true);
+        }
+
+        /**
+         * Renders the Tasks page.
+         */
+        function renderTasksPage() {
+            tasksListContainer.innerHTML = ''; // Clear previous content
+
+            if (tasks.length === 0) {
+                tasksListContainer.innerHTML = '<p style="text-align: center; color: #666;">No tasks added yet. Click "Add New Task" to get started!</p>';
+                return;
+            }
+
+            // Sort tasks: Incomplete first, then by due date. Completed last.
+            const sortedTasks = [...tasks].sort((a, b) => {
+                if (a.isCompleted !== b.isCompleted) {
+                    return a.isCompleted ? 1 : -1; // Incomplete comes before completed
+                }
+                // For tasks with same completion status, sort by due date
+                if (a.dueDate && b.dueDate) {
+                    return new Date(a.dueDate) - new Date(b.dueDate);
+                }
+                if (a.dueDate) return -1; // Tasks with due date before those without
+                if (b.dueDate) return 1;
+                return 0;
+            });
+
+
+            sortedTasks.forEach(task => {
+                const taskSubject = subjects.find(s => s.id === task.subjectId);
+                const taskItem = document.createElement('div');
+                taskItem.classList.add('list-item', 'task-item');
+                if (task.isCompleted) {
+                    taskItem.classList.add('completed');
+                }
+                taskItem.innerHTML = `
+                    <input type="checkbox" data-id="${task.id}" ${task.isCompleted ? 'checked' : ''}>
+                    <div class="item-content">
+                        <h3 class="task-description">${task.description}</h3>
+                        ${task.dueDate ? `<p>Due: ${new Date(task.dueDate).toLocaleDateString()}</p>` : ''}
+                        <p>Subject: ${taskSubject ? taskSubject.name : 'None'}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-edit edit-task-btn" data-id="${task.id}"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-delete delete-task-btn" data-id="${task.id}"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
+                `;
+                tasksListContainer.appendChild(taskItem);
+            });
+
+            // Add event listeners
+            tasksListContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.onchange = (e) => toggleTaskCompletion(e.currentTarget.dataset.id);
+            });
+            tasksListContainer.querySelectorAll('.edit-task-btn').forEach(btn => {
+                btn.onclick = (e) => editTask(e.currentTarget.dataset.id);
+            });
+            tasksListContainer.querySelectorAll('.delete-task-btn').forEach(btn => {
+                btn.onclick = (e) => deleteTask(e.currentTarget.dataset.id);
+            });
+        }
+
+        /**
+         * Populates the subject select dropdown for tasks/exams/pomodoro.
+         * @param {HTMLElement} selectElement - The select HTML element.
+         * @param {string} [selectedId] - The ID of the subject to pre-select.
+         * @param {boolean} [includeNone=true] - Whether to include a "None" option.
+         */
+        function populateSubjectSelect(selectElement, selectedId = null, includeNone = true) {
+            selectElement.innerHTML = ''; // Clear existing options
+            if (includeNone) {
+                const noneOption = document.createElement('option');
+                noneOption.value = '';
+                noneOption.textContent = 'None';
+                selectElement.appendChild(noneOption);
+            }
+
+            subjects.forEach(subject => {
+                const option = document.createElement('option');
+                option.value = subject.id;
+                option.textContent = subject.name;
+                if (selectedId === subject.id) {
+                    option.selected = true;
+                }
+                selectElement.appendChild(option);
+            });
+        }
+
+        /**
+         * Handles adding a new task.
+         * @param {string} [prefillDate=null] - Optional date string to prefill the due date input.
+         */
+        function handleAddTask(prefillDate = null) {
+            // Set up prefill for current date
+            const taskDueDateInput = addTaskForm.querySelector('#taskDueDate');
+            if (taskDueDateInput) { // Added null check
+                taskDueDateInput.value = prefillDate || '';
+            }
+            // Populate subject dropdown
+            const taskSubjectSelect = addTaskForm.querySelector('#taskSubject');
+            if (taskSubjectSelect) { // Added null check
+                populateSubjectSelect(taskSubjectSelect);
+            }
+
+            showCustomFormModal(addTaskModal, addTaskForm, (event) => {
+                const description = event.target.taskDescription.value;
+                const dueDate = event.target.taskDueDate.value || null;
+                const subjectId = event.target.taskSubject.value || null;
+
+                tasks.push({
+                    id: generateUUID(),
+                    description: description,
+                    dueDate: dueDate,
+                    isCompleted: false,
+                    subjectId: subjectId,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                });
+                saveData();
+                updateSubjectMetrics(); // Update subject's task count
+                renderTasksPage();
+                renderCalendar(); // Re-render calendar to show new task
+                customAlert('Success', `Task "${description}" added!`, null);
+            });
+        }
+
+        addTaskBtn.onclick = () => handleAddTask(); // For Tasks page button
+
+        /**
+         * Handles editing an existing task.
+         * @param {string} id - The ID of the task to edit.
+         */
+        function editTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (!task) return;
+
+            const editTaskForm = addTaskModal.querySelector('form'); // Reusing the same form structure for edit
+            if (editTaskForm.querySelector('#taskDescription')) { // Added null check
+                editTaskForm.querySelector('#taskDescription').value = task.description;
+            }
+            if (editTaskForm.querySelector('#taskDueDate')) { // Added null check
+                editTaskForm.querySelector('#taskDueDate').value = task.dueDate || '';
+            }
+            if (editTaskForm.querySelector('#taskSubject')) { // Added null check
+                populateSubjectSelect(editTaskForm.querySelector('#taskSubject'), task.subjectId);
+            }
+
+            showCustomFormModal(addTaskModal, editTaskForm, (event) => {
+                task.description = event.target.taskDescription.value;
+                task.dueDate = event.target.taskDueDate.value || null;
+                task.subjectId = event.target.taskSubject.value || null;
+                task.updatedAt = new Date().toISOString();
+                saveData();
+                updateSubjectMetrics(); // Recalculate subject's task count in case subject changed
+                renderTasksPage();
+                renderCalendar(); // Re-render calendar to reflect changes
+                customAlert('Success', `Task "${task.description}" updated!`, null);
+            });
+        }
+
+        /**
+         * Toggles the completion status of a task.
+         * @param {string} id - The ID of the task to toggle.
+         */
+        function toggleTaskCompletion(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.isCompleted = !task.isCompleted;
+                task.updatedAt = new Date().toISOString();
+                saveData();
+                updateSubjectMetrics(); // Update subject's task count
+                renderTasksPage(); // Re-render to update UI
+                renderCalendar(); // Re-render calendar
+            }
+        }
+
+        /**
+         * Deletes a task.
+         * @param {string} id - The ID of the task to delete.
+         */
+        function deleteTask(id) {
+            customAlert('Confirm Delete', 'Are you sure you want to delete this task?', () => {
+                tasks = tasks.filter(t => t.id !== id);
+                saveData();
+                updateSubjectMetrics(); // Update subject's task count
+                renderTasksPage();
+                renderCalendar(); // Re-render calendar
+                customAlert('Deleted', 'Task deleted successfully.', null);
+            }, true);
+        }
+
+
+        /**
+         * Handles adding a new exam.
+         * @param {string} [prefillDate=null] - Optional date string to prefill the exam date input.
+         */
+        function handleAddExam(prefillDate = null) {
+            const now = new Date();
+            const today = now.toISOString().split('T')[0]; // форматеण्डी-MM-DD
+            const currentTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            // Prefill form fields
+            const examDateInput = addExamForm.querySelector('#examDate');
+            const examTimeInput = addExamForm.querySelector('#examTime');
+            const examSubjectSelect = addExamForm.querySelector('#examSubject');
+
+            if (examDateInput) { // Added null check
+                examDateInput.value = prefillDate || today;
+            }
+            if (examTimeInput) { // Added null check
+                examTimeInput.value = currentTime;
+            }
+            if (examSubjectSelect) { // Added null check
+                populateSubjectSelect(examSubjectSelect, null, false); // No "None" for exams
+            }
+
+            showCustomFormModal(addExamModal, addExamForm, (event) => {
+                const name = event.target.examName.value;
+                const date = event.target.examDate.value;
+                const time = event.target.examTime.value;
+                const subjectId = event.target.examSubject.value;
+
+                // Combine date and time into a single ISO string
+                const fullDateTime = time ? `${date}T${time}:00` : `${date}T00:00:00`;
+
+                exams.push({
+                    id: generateUUID(),
+                    name: name,
+                    date: fullDateTime,
+                    subjectId: subjectId,
+                    createdAt: new Date().toISOString()
+                });
+                saveData();
+                updateSubjectMetrics(); // Update subject's upcoming exams
+                renderCalendar(); // Re-render calendar to show new exam
+                customAlert('Success', `Exam "${name}" added!`, null);
+            });
+        }
+
+        // Removed addExamBtn.onclick as it's now handled by the choice modal
+
+        /**
+         * Handles editing an existing exam.
+         * @param {string} id - The ID of the exam to edit.
+         */
+        function editExam(id) {
+            const exam = exams.find(e => e.id === id);
+            if (!exam) return;
+
+            const examDate = new Date(exam.date);
+            const datePart = examDate.toISOString().split('T')[0];
+            const timePart = examDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            const editExamForm = addExamModal.querySelector('form'); // Reusing the form
+            if (editExamForm.querySelector('#examName')) { // Added null check
+                editExamForm.querySelector('#examName').value = exam.name;
+            }
+            if (editExamForm.querySelector('#examDate')) { // Added null check
+                editExamForm.querySelector('#examDate').value = datePart;
+            }
+            if (editExamForm.querySelector('#examTime')) { // Added null check
+                editExamForm.querySelector('#examTime').value = timePart;
+            }
+            if (editExamForm.querySelector('#examSubject')) { // Added null check
+                populateSubjectSelect(editExamForm.querySelector('#examSubject'), exam.subjectId, false);
+            }
+
+            showCustomFormModal(addExamModal, editExamForm, (event) => {
+                exam.name = event.target.examName.value;
+                const newDate = event.target.editExamDate.value;
+                const newTime = event.target.editExamTime.value;
+                exam.date = newTime ? `${newDate}T${newTime}:00` : `${newDate}T00:00:00`;
+                exam.subjectId = event.target.editExamSubject.value;
+                saveData();
+                updateSubjectMetrics(); // Update subject's upcoming exams
+                renderCalendar(); // Re-render calendar to reflect changes
+                customAlert('Success', `Exam "${exam.name}" updated!`, null);
+            });
+        }
+
+        /**
+         * Handles deleting an exam.
+         * @param {string} id - The ID of the exam to delete.
+         */
+        function deleteExam(id) {
+            customAlert('Confirm Delete', 'Are you sure you want to delete this exam?', () => {
+                exams = exams.filter(e => e.id !== id);
+                saveData();
+                updateSubjectMetrics(); // Update subject's upcoming exams
+                renderCalendar(); // Re-render calendar
+                customAlert('Deleted', 'Exam deleted successfully.', null);
+            }, true);
+        }
+
+        /**
+         * Handles adding a new general event.
+         * @param {string} [prefillDate=null] - Optional date string to prefill the event date input.
+         */
+        function handleAddEvent(prefillDate = null) {
+            const now = new Date();
+            const today = now.toISOString().split('T')[0];
+            const currentTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            // Prefill form fields
+            const eventDateInput = addEventForm.querySelector('#eventDate');
+            const eventTimeInput = addEventForm.querySelector('#eventTime');
+            if (eventDateInput) { // Added null check
+                eventDateInput.value = prefillDate || today;
+            }
+            if (eventTimeInput) { // Added null check
+                eventTimeInput.value = currentTime;
+            }
+            if (addEventForm.querySelector('#eventName')) { // Added null check
+                addEventForm.querySelector('#eventName').value = ''; // Clear previous name
+            }
+            if (addEventForm.querySelector('#eventDescription')) { // Added null check
+                addEventForm.querySelector('#eventDescription').value = ''; // Clear previous description
+            }
+
+            showCustomFormModal(addEventModal, addEventForm, (event) => {
+                const name = event.target.eventName.value;
+                const date = event.target.eventDate.value;
+                const time = event.target.eventTime.value;
+                const description = event.target.eventDescription.value || null;
+
+                const fullDateTime = time ? `${date}T${time}:00` : `${date}T00:00:00`;
+
+                events.push({
+                    id: generateUUID(),
+                    name: name,
+                    date: fullDateTime,
+                    description: description,
+                    createdAt: new Date().toISOString()
+                });
+                saveData();
+                renderCalendar(); // Re-render calendar to show new event
+                customAlert('Success', `Event "${name}" added!`, null);
+            });
+        }
+
+        /**
+         * Handles editing an existing event.
+         * @param {string} id - The ID of the event to edit.
+         */
+        function editEvent(id) {
+            const eventItem = events.find(e => e.id === id);
+            if (!eventItem) return;
+
+            const eventDate = new Date(eventItem.date);
+            const datePart = eventDate.toISOString().split('T')[0];
+            const timePart = eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            const editEventForm = addEventModal.querySelector('form'); // Reusing the form
+            if (editEventForm.querySelector('#eventName')) { // Added null check
+                editEventForm.querySelector('#eventName').value = eventItem.name;
+            }
+            if (editEventForm.querySelector('#eventDate')) { // Added null check
+                editEventForm.querySelector('#eventDate').value = datePart;
+            }
+            if (editEventForm.querySelector('#eventTime')) { // Added null check
+                editEventForm.querySelector('#eventTime').value = timePart;
+            }
+            if (editEventForm.querySelector('#eventDescription')) { // Added null check
+                editEventForm.querySelector('#eventDescription').value = eventItem.description || '';
+            }
+
+            showCustomFormModal(addEventModal, editEventForm, (event) => {
+                eventItem.name = event.target.eventName.value;
+                const newDate = event.target.eventDate.value;
+                const newTime = event.target.eventTime.value;
+                eventItem.date = newTime ? `${newDate}T${newTime}:00` : `${newDate}T00:00:00`;
+                eventItem.description = event.target.eventDescription.value || null;
+                saveData();
+                renderCalendar();
+                customAlert('Success', `Event "${eventItem.name}" updated!`, null);
+            });
+        }
+
+        /**
+         * Handles deleting an event.
+         * @param {string} id - The ID of the event to delete.
+         */
+        function deleteEvent(id) {
+            customAlert('Confirm Delete', 'Are you sure you want to delete this event?', () => {
+                events = events.filter(e => e.id !== id);
+                saveData();
+                renderCalendar();
+                customAlert('Deleted', 'Event deleted successfully.', null);
+            }, true);
+        }
+
+
+        /**
+         * Renders the Pomodoro Timer page.
+         */
+        function renderPomodoroPage() {
+            // Populate subject select for Pomodoro
+            populateSubjectSelect(pomodoroSubjectSelect);
+
+            // Set initial values for inputs if available
+            workDurationInput.value = defaultWorkDuration / 60;
+            breakDurationInput.value = defaultBreakDuration / 60;
+
+            updateTimerDisplay(); // Ensure timer display is correct on load
+            updatePomodoroButtonsState(); // Set initial button states
+        }
+
+        /**
+         * Updates the timer display.
+         */
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        /**
+         * Updates the state of Pomodoro buttons (enabled/disabled).
+         */
+        function updatePomodoroButtonsState() {
+            startPomodoroBtn.disabled = isTimerRunning;
+            pausePomodoroBtn.disabled = !isTimerRunning;
+            resetPomodoroBtn.disabled = isTimerRunning || (timeLeft === (isWorkSession ? defaultWorkDuration : defaultBreakDuration) && timeLeft !== 0);
+
+            workDurationInput.disabled = isTimerRunning;
+            breakDurationInput.disabled = isTimerRunning;
+            pomodoroSubjectSelect.disabled = isTimerRunning;
+        }
+
+        /**
+         * Starts or resumes the Pomodoro timer.
+         */
+        startPomodoroBtn.onclick = () => {
+            if (!isTimerRunning) {
+                // Initial start or resume after pause
+                if (timeLeft === 0) { // If starting a new session
+                    defaultWorkDuration = parseInt(workDurationInput.value) * 60 || (25 * 60);
+                    defaultBreakDuration = parseInt(breakDurationInput.value) * 60 || (5 * 60);
+                    timeLeft = defaultWorkDuration; // Always start with a work session
+                    isWorkSession = true;
+                }
+
+                isTimerRunning = true;
+                updatePomodoroButtonsState();
+
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        isTimerRunning = false;
+                        let sessionType = isWorkSession ? "Work" : "Break";
+                        let subjectName = pomodoroSubjectSelect.value ? subjects.find(s => s.id === pomodoroSubjectSelect.value)?.name : "No Subject";
+
+                        // Record work session time ONLY if it was a work session
+                        if (isWorkSession) {
+                            const selectedSubjectId = pomodoroSubjectSelect.value;
+                            if (selectedSubjectId) {
+                                const subject = subjects.find(s => s.id === selectedSubjectId);
+                                if (subject) {
+                                    subject.totalStudyTime = (subject.totalStudyTime || 0) + (defaultWorkDuration / 60); // Add minutes
+                                    pomodoroSessions.push({
+                                        id: generateUUID(),
+                                        workDuration: defaultWorkDuration / 60,
+                                        breakDuration: defaultBreakDuration / 60,
+                                        startTime: new Date(Date.now() - defaultWorkDuration * 1000).toISOString(),
+                                        endTime: new Date().toISOString(),
+                                        subjectId: selectedSubjectId,
+                                        createdAt: new Date().toISOString()
+                                    });
+                                    saveData();
+                                    updateSubjectMetrics(); // Recalculate study time for subjects
+                                }
+                            }
+                            customAlert('Pomodoro Complete!', `Your ${sessionType} session for ${subjectName} is over! Time for a break.`, null);
+                            isWorkSession = false;
+                            timeLeft = defaultBreakDuration;
+                        } else {
+                            customAlert('Break Over!', `Your ${sessionType} session is over! Time to get back to work.`, null);
+                            isWorkSession = true;
+                            timeLeft = defaultWorkDuration;
+                        }
+
+                        updateTimerDisplay();
+                        updatePomodoroButtonsState();
+                    }
+                }, 1000);
+            }
+        };
+
+        /**
+         * Pauses the Pomodoro timer.
+         */
+        pausePomodoroBtn.onclick = () => {
+            if (isTimerRunning) {
+                clearInterval(timer);
+                isTimerRunning = false;
+                updatePomodoroButtonsState();
+            }
+        };
+
+        /**
+         * Resets the Pomodoro timer to its initial state.
+         */
+        resetPomodoroBtn.onclick = () => {
+            clearInterval(timer);
+            isTimerRunning = false;
+            isWorkSession = true; // Always reset to work session
+            timeLeft = defaultWorkDuration;
+            updateTimerDisplay();
+            updatePomodoroButtonsState();
+        };
+
+        // --- Calendar Page Functions ---
+
+        /**
+         * Renders the Calendar page.
+         */
+        function renderCalendarPage() {
+            // Ensure day events section is initially hidden or empty
+            dayEventsSection.style.display = 'block';
+            dayEventsList.innerHTML = '<li style="text-align: center; color: #666;">Select a day to see events.</li>';
+            selectedDayDateDisplay.textContent = 'a selected day';
+
+            // Render calendar for the current month/year
+            renderCalendar();
+        }
+
+        /**
+         * Renders the calendar grid for the currentCalendarDate.
+         */
+        function renderCalendar() {
+            calendarGridContainer.innerHTML = `
+                <div class="calendar-day-header">Sun</div>
+                <div class="calendar-day-header">Mon</div>
+                <div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div>
+                <div class="calendar-day-header">Thu</div>
+                <div class="calendar-day-header">Fri</div>
+                <div class="calendar-day-header">Sat</div>
+            `; // Clear previous days and add headers
+
+            currentMonthYearDisplay.textContent = currentCalendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth(); // 0-indexed
+
+            const firstDayOfMonth = new Date(year, month, 1);
+            const lastDayOfMonth = new Date(year, month + 1, 0); // Last day of current month
+            const daysInMonth = lastDayOfMonth.getDate();
+
+            // Calculate the day of the week for the first day of the month (0=Sunday, 6=Saturday)
+            const startDayOfWeek = firstDayOfMonth.getDay();
+
+            // Fill leading empty days
+            for (let i = 0; i < startDayOfWeek; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day', 'inactive');
+                calendarGridContainer.appendChild(emptyDay);
+            }
+
+            // Fill days of the month
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize to start of day for comparison
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('calendar-day');
+                dayDiv.dataset.date = date.toISOString().split('T')[0]; // Store date as ISO-MM-DD
+
+                if (date.toDateString() === today.toDateString()) {
+                    dayDiv.classList.add('today');
+                }
+
+                if (selectedCalendarDate && date.toDateString() === selectedCalendarDate.toDateString()) {
+                    dayDiv.classList.add('selected-day');
+                }
+
+                dayDiv.innerHTML = `<span class="day-number">${day}</span>`;
+
+                // Check for tasks, exams, AND events on this day
+                const hasTasks = tasks.some(t => {
+                    if (!t.dueDate || t.isCompleted) return false;
+                    const taskDate = new Date(t.dueDate);
+                    taskDate.setHours(0,0,0,0);
+                    return taskDate.toDateString() === date.toDateString();
+                });
+
+                const hasExams = exams.some(e => {
+                    const examDate = new Date(e.date);
+                    examDate.setHours(0,0,0,0);
+                    return examDate.toDateString() === date.toDateString();
+                });
+
+                const hasEvents = events.some(eventItem => {
+                    const eventDate = new Date(eventItem.date);
+                    eventDate.setHours(0,0,0,0);
+                    return eventDate.toDateString() === date.toDateString();
+                });
+
+
+                if (hasTasks || hasExams || hasEvents) {
+                    const indicatorDiv = document.createElement('div');
+                    indicatorDiv.classList.add('event-indicator');
+                    if (hasTasks) {
+                        const taskDot = document.createElement('span');
+                        taskDot.classList.add('task');
+                        indicatorDiv.appendChild(taskDot);
+                    }
+                    if (hasExams) {
+                        const examDot = document.createElement('span');
+                        examDot.classList.add('exam');
+                        indicatorDiv.appendChild(examDot);
+                    }
+                    if (hasEvents) { // NEW event indicator
+                        const eventDot = document.createElement('span');
+                        eventDot.classList.add('event');
+                        indicatorDiv.appendChild(eventDot);
+                    }
+                    dayDiv.appendChild(indicatorDiv);
+                }
+
+                dayDiv.onclick = () => selectCalendarDay(date);
+                calendarGridContainer.appendChild(dayDiv);
+            }
+
+            // Fill trailing empty days
+            const totalDaysRendered = startDayOfWeek + daysInMonth;
+            const numCells = Math.ceil(totalDaysRendered / 7) * 7; // Ensure full weeks
+            const remainingCells = numCells - totalDaysRendered;
+
+            for (let i = 0; i < remainingCells; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day', 'inactive');
+                calendarGridContainer.appendChild(emptyDay);
+            }
+
+            // Re-select the previously selected day if it's still in the current month view
+            if (selectedCalendarDate && selectedCalendarDate.getMonth() === month && selectedCalendarDate.getFullYear() === year) {
+                selectCalendarDay(selectedCalendarDate);
+            } else {
+                // Clear selected day display if not in current month
+                dayEventsList.innerHTML = '<li style="text-align: center; color: #666;">Select a day to see events.</li>';
+                selectedDayDateDisplay.textContent = 'a selected day';
+            }
+        }
+
+        /**
+         * Handles selecting a day on the calendar.
+         * @param {Date} date - The date of the selected day.
+         */
+        function selectCalendarDay(date) {
+            // Remove 'selected-day' from previously selected day
+            const prevSelected = calendarGridContainer.querySelector('.selected-day');
+            if (prevSelected) {
+                prevSelected.classList.remove('selected-day');
+            }
+
+            // Add 'selected-day' to the new selected day
+            const selectedDayDiv = calendarGridContainer.querySelector(`[data-date="${date.toISOString().split('T')[0]}"]`);
+            if (selectedDayDiv) {
+                selectedDayDiv.classList.add('selected-day');
+            }
+
+            selectedCalendarDate = date; // Update global selected date
+            selectedDayDateDisplay.textContent = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            renderDayEvents(date);
+        }
+
+        /**
+         * Renders tasks, exams, and events for a specific day.
+         * @param {Date} date - The date for which to render events.
+         */
+        function renderDayEvents(date) {
+            dayEventsList.innerHTML = ''; // Clear previous events
+
+            const targetDateString = date.toISOString().split('T')[0];
+
+            const eventsForDay = [];
+
+            // Add tasks for the day
+            tasks.forEach(task => {
+                if (task.dueDate && task.dueDate.split('T')[0] === targetDateString) {
+                    const taskSubject = subjects.find(s => s.id === task.subjectId);
+                    eventsForDay.push({
+                        type: 'task',
+                        name: task.description,
+                        subject: taskSubject ? taskSubject.name : 'No Subject',
+                        isCompleted: task.isCompleted,
+                        id: task.id
+                    });
+                }
+            });
+
+            // Add exams for the day
+            exams.forEach(exam => {
+                if (exam.date && exam.date.split('T')[0] === targetDateString) {
+                    const examSubject = subjects.find(s => s.id === exam.subjectId);
+                    eventsForDay.push({
+                        type: 'exam',
+                        name: exam.name,
+                        subject: examSubject ? examSubject.name : 'Unknown Subject',
+                        time: new Date(exam.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                        id: exam.id
+                    });
+                }
+            });
+
+            // Add general events for the day (NEW)
+            events.forEach(eventItem => {
+                if (eventItem.date && eventItem.date.split('T')[0] === targetDateString) {
+                    eventsForDay.push({
+                        type: 'event',
+                        name: eventItem.name,
+                        description: eventItem.description,
+                        time: eventItem.time ? new Date(eventItem.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null,
+                        id: eventItem.id
+                    });
+                }
+            });
+
+
+            if (eventsForDay.length === 0) {
+                dayEventsList.innerHTML = '<li style="text-align: center; color: #666;">No events scheduled for this day.</li>';
+                return;
+            }
+
+            eventsForDay.sort((a, b) => {
+                // Prioritize exams > events > tasks
+                if (a.type !== b.type) {
+                    if (a.type === 'exam') return -1;
+                    if (b.type === 'exam') return 1;
+                    if (a.type === 'event') return -1;
+                    if (b.type === 'event') return 1;
+                }
+                // For exams/events, sort by time if available
+                if ((a.type === 'exam' || a.type === 'event') && (b.type === 'exam' || b.type === 'event') && a.time && b.time) {
+                    return a.time.localeCompare(b.time);
+                }
+                // For tasks, no specific order needed beyond completion status (already handled in renderTasksPage)
+                return 0;
+            });
+
+            eventsForDay.forEach(event => {
+                const listItem = document.createElement('li');
+                listItem.classList.add(`${event.type}-event`);
+
+                let detailsHtml = '';
+                if (event.type === 'task') {
+                    detailsHtml = `<span>Subject: ${event.subject}</span><span>Status: ${event.isCompleted ? 'Completed' : 'Pending'}</span>`;
+                } else if (event.type === 'exam') {
+                    detailsHtml = `<span>Subject: ${event.subject}</span><span>Time: ${event.time}</span>`;
+                } else if (event.type === 'event') {
+                    detailsHtml = `
+                        ${event.time ? `<span>Time: ${event.time}</span>` : ''}
+                        ${event.description ? `<span>${event.description}</span>` : ''}
+                    `;
+                }
+
+                listItem.innerHTML = `
+                    <strong>${event.name}</strong>
+                    ${detailsHtml}
+                    <div style="display: flex; gap: 8px; margin-top: 10px;">
+                        <button class="btn btn-edit btn-small" onclick="handleEditEvent('${event.type}', '${event.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-delete btn-small" onclick="handleDeleteEvent('${event.type}', '${event.id}')"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                `;
+                dayEventsList.appendChild(listItem);
+            });
+        }
+
+        // Functions to handle edit/delete from the calendar day events list
+        function handleEditEvent(type, id) {
+            if (type === 'task') editTask(id);
+            else if (type === 'exam') editExam(id);
+            else if (type === 'event') editEvent(id);
+        }
+
+        function handleDeleteEvent(type, id) {
+            if (type === 'task') deleteTask(id);
+            else if (type === 'exam') deleteExam(id);
+            else if (type === 'event') deleteEvent(id);
+        }
+
+        // --- Calendar Event Listeners ---
+        prevMonthBtn.onclick = () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar();
+        };
+
+        nextMonthBtn.onclick = () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar();
+        };
+
+        // Handle the main "Add Schedule" button on the Calendar page
+        addScheduleCalendarBtn.onclick = () => {
+            addScheduleChoiceModal.classList.add('visible'); // Show the choice modal
+        };
+
+        // Handlers for the choice modal buttons
+        choiceAddTaskBtn.onclick = () => {
+            addScheduleChoiceModal.classList.remove('visible');
+            handleAddTask(selectedCalendarDate ? selectedCalendarDate.toISOString().split('T')[0] : null);
+        };
+
+        choiceAddExamBtn.onclick = () => {
+            addScheduleChoiceModal.classList.remove('visible');
+            handleAddExam(selectedCalendarDate ? selectedCalendarDate.toISOString().split('T')[0] : null);
+        };
+
+        choiceAddEventBtn.onclick = () => { // NEW event choice handler
+            addScheduleChoiceModal.classList.remove('visible');
+            handleAddEvent(selectedCalendarDate ? selectedCalendarDate.toISOString().split('T')[0] : null);
+        };
+
+        // Close the Add Schedule Choice Modal
+        closeAddScheduleChoiceModalBtn.onclick = () => {
+            addScheduleChoiceModal.classList.remove('visible');
+        };
+        addScheduleChoiceModal.onclick = (event) => {
+            if (event.target === addScheduleChoiceModal) {
+                addScheduleChoiceModal.classList.remove('visible');
+            }
+        };
+
+
+        // --- Event Listeners and Initialization ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            updateSubjectMetrics(); // Ensure metrics are correct on initial load
+            showPage('homePage'); // Show home page by default
+
+            // Navigation event listeners
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = e.target.dataset.page || e.target.closest('a').dataset.page;
+                    showPage(pageId);
+                });
+            });
+
+            // Attach close button listeners for new custom modals
+            // The `closeModalBtn` is for the generic `modalContainer` used by subjects now.
+            // Other custom-form-modals have their own specific close buttons handled by `showCustomFormModal`
+            const genericModalContainer = document.getElementById('modalContainer');
+            if (genericModalContainer) { // Null check for genericModalContainer
+                const genericCloseModalBtn = genericModalContainer.querySelector('.close-button');
+                if (genericCloseModalBtn) {
+                    genericCloseModalBtn.onclick = () => genericModalContainer.classList.remove('visible');
+                }
+                genericModalContainer.onclick = (event) => {
+                    if (event.target === genericModalContainer) {
+                        genericModalContainer.classList.remove('visible');
+                    }
+                };
+            }
+
+            closeAddTaskModalBtn.onclick = () => hideCustomFormModal(addTaskModal);
+            addTaskModal.onclick = (event) => { if (event.target === addTaskModal) hideCustomFormModal(addTaskModal); };
+
+            closeAddExamModalBtn.onclick = () => hideCustomFormModal(addExamModal);
+            addExamModal.onclick = (event) => { if (event.target === addExamModal) hideCustomFormModal(addExamModal); };
+
+            closeAddEventModalBtn.onclick = () => hideCustomFormModal(addEventModal); // NEW event modal close
+            addEventModal.onclick = (event) => { if (event.target === addEventModal) hideCustomFormModal(addEventModal); }; // NEW event modal close
+        });
+
+    </script>
+</body>
+</html>
